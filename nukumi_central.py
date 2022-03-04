@@ -10,8 +10,6 @@ from digitalio import DigitalInOut, Direction, Pull
 
 import neopixel
 
-# import busio
-
 #
 
 from adafruit_ble import BLERadio
@@ -26,17 +24,8 @@ color_red = 0
 color_blue = 255
 
 light = neopixel.NeoPixel(board.NEOPIXEL, 10)
-light.fill((color_red, 0, color_blue))
+light.fill((color_red, 30, color_blue))
 light.brightness = 0
-
-count = 0
-
-#
-
-# uart = busio.UART(board.TX, board.RX, baudrate = 9600, timeout = 0)
-
-UPDATE_INTERVAL = 3.0
-last_time_sent = 0
 
 #
 
@@ -88,7 +77,7 @@ while True:
 
             #
 
-            light.fill((color_red, 0, color_blue))
+            light.fill((color_red, 30, color_blue))
 
             #
 
@@ -113,9 +102,6 @@ while True:
                     if color_red > 0:
                         color_red -= 1
 
-                    # if here_light_touch and int(string_read_list[0]) == 1:
-                    #     break
-
                 elif here_light_touch:
                     if here_light_brightness < .4:
                         here_light_brightness += .008
@@ -136,9 +122,6 @@ while True:
                     if color_red > 0:
                         color_red -= 1
 
-                    # if here_light_touch and int(string_read_list[0]) == 1:
-                    #     return
-
             #
 
             light.brightness = here_light_brightness
@@ -151,7 +134,8 @@ while True:
             time_now = time.monotonic()
 
             string_write = str(int(here_light_touch)) + ',' + str(here_light_brightness) + '\n'
-            uart_service.write(bytes(string_write, 'utf-8'))
+            # uart_service.write(bytes(string_write, 'utf-8'))
+            uart_service.write(string_write.encode("utf-8"))
 
             #
 
