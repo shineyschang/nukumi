@@ -24,15 +24,8 @@ color_red = 0
 color_blue = 255
 
 light = neopixel.NeoPixel(board.NEOPIXEL, 10)
-light.fill((color_red, 0, color_blue))
+light.fill((color_red, 30, color_blue))
 light.brightness = 0
-
-count = 0
-
-#
-
-UPDATE_INTERVAL = 3.0
-last_time_sent = 0
 
 #
 
@@ -76,7 +69,7 @@ while True:
 
         #
 
-        light.fill((color_red, 0, color_blue))
+        light.fill((color_red, 30, color_blue))
 
         if len(string_read_list) == 2 and string_read_list is not None and string_read_list[0] != "" and len(string_read_list[0]) == 1:
             if here_light_touch and int(string_read_list[0]) == 1:
@@ -99,9 +92,6 @@ while True:
                 if color_red > 0:
                     color_red -= 1
 
-                # if here_light_touch and int(string_read_list[0]) == 1:
-                #     break
-
             elif here_light_touch:
                 if here_light_brightness < .4:
                     here_light_brightness += .008
@@ -121,9 +111,6 @@ while True:
 
                 if color_red > 0:
                     color_red -= 1
-
-                # if here_light_touch and int(string_read_list[0]) == 1:
-                #     return
 
         #
 
